@@ -102,7 +102,10 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
           Actionable advice
         </header>
 
-        <div className="flex flex-col gap-3 items-start p-4 mx-auto my-0 w-full max-w-screen-lg">
+        <div
+          className="flex flex-col gap-3 items-start p-4 mx-auto my-0 w-full max-w-screen-lg bg-neutral-100 rounded-[32px] shadow-[0px_-1px_24px_0px_#0000000A,0px_-0.5px_1px_0px_#0000001F]
+"
+        >
           {/* Meeting Information Header */}
           {(meetingContextFields || leadershipGoalFields) && (
             <div className="box-border flex flex-wrap overflow-hidden overflow-x-scroll relative flex-row shrink-0 gap-8 px-6 w-full">
@@ -115,7 +118,7 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                     </time>
                   )}
                   {meetingContextFields?.attendee && (
-                    <h3 className="box-border relative shrink-0 h-auto text-base text-zinc-800 font-medium">
+                    <h3 className="box-border relative shrink-0 h-auto text-base text-zinc-500 font-medium">
                       {`Meeting with ${meetingContextFields?.attendee}`}
                     </h3>
                   )}
@@ -135,7 +138,7 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                           className="box-border object-cover overflow-hidden shrink-0 w-4 h-4"
                           alt={`${leadershipGoalFields?.style} icon`}
                         />
-                        <span className="box-border relative shrink-0 h-auto text-base text-zinc-800">
+                        <span className="box-border relative shrink-0 h-auto text-base text-zinc-500">
                           {leadershipGoalFields?.style}
                         </span>
                       </div>
@@ -153,7 +156,7 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                           className="box-border object-cover overflow-hidden shrink-0 w-4 h-4"
                           alt={`${leadershipGoalFields?.trait} icon`}
                         />
-                        <span className="box-border relative shrink-0 h-auto text-base text-zinc-800">
+                        <span className="box-border relative shrink-0 h-auto text-base text-zinc-500">
                           {leadershipGoalFields?.trait}
                         </span>
                       </div>
@@ -172,8 +175,8 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
               <div className="flex gap-5 max-md:flex-col">
                 {/* What you said card */}
                 {feedbackOriginalStatement && (
-                  <article className="w-[33%] max-md:ml-0 max-md:w-full">
-                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
+                  <article className="w-[33%] max-md:ml-0 max-md:w-full ">
+                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded-[24px] shadow ">
                       <img
                         src={FeedbackSectionStyleIconMap.originalStatement}
                         className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
@@ -181,12 +184,12 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                       />
                       <div className="box-border flex relative flex-col grow shrink-0 gap-1">
                         {feedbackOriginalStatement?.title && (
-                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
+                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-medium text-[15px]">
                             {feedbackOriginalStatement?.title}
                           </h4>
                         )}
                         {feedbackOriginalStatement?.text && (
-                          <blockquote className="box-border relative shrink-0 h-auto text-lg italic font-light text-zinc-700">
+                          <blockquote className="box-border relative shrink-0 h-auto text-lg italic font-light text-neutral-800">
                             {feedbackOriginalStatement?.text}
                           </blockquote>
                         )}
@@ -198,7 +201,7 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                 {/* Why it matters card */}
                 {feedbackAnalysis && (
                   <article className="ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
+                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded-[24px] shadow">
                       <img
                         src={FeedbackSectionStyleIconMap.analysis}
                         className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
@@ -206,12 +209,12 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                       />
                       <div className="box-border flex relative flex-col grow shrink-0 gap-1">
                         {feedbackAnalysis?.title && (
-                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
+                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-medium text-[15px]">
                             {feedbackAnalysis?.title}
                           </h4>
                         )}
                         {feedbackAnalysis?.text && (
-                          <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-zinc-700">
+                          <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-neutral-800">
                             {feedbackAnalysis?.text}
                           </p>
                         )}
@@ -223,7 +226,7 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                 {/* Try this next time card */}
                 {feedbackSuggestion && (
                   <article className="ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
+                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-green-50 rounded-[24px] shadow">
                       <img
                         src={FeedbackSectionStyleIconMap.suggestion}
                         className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
@@ -231,12 +234,12 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
                       />
                       <div className="box-border flex relative flex-col grow shrink-0 gap-1">
                         {feedbackSuggestion?.title && (
-                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
+                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-medium text-[15px]">
                             {feedbackSuggestion?.title}
                           </h4>
                         )}
                         {feedbackSuggestion?.text && (
-                          <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-zinc-700">
+                          <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-neutral-800">
                             {feedbackSuggestion?.text}
                           </p>
                         )}
