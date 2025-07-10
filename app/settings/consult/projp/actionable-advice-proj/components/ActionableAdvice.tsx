@@ -23,15 +23,15 @@ interface LeadershipGoal {
   trait: string;
 };
 
-interface FeedbackSEction {
+interface FeedbackSection {
   title: string;
   text: string;
 };
 
 interface Feedback {
-  originalStatement: FeedbackSEction;
-  analysis: FeedbackSEction;
-  suggestion: FeedbackSEction;
+  originalStatement: FeedbackSection;
+  analysis: FeedbackSection;
+  suggestion: FeedbackSection;
 };
 
 interface ActionableAdvice {
@@ -45,7 +45,22 @@ interface ActionableAdviceProps {
     error: ErrorData,
     actionableAdvice: ActionableAdvice | null
   };
-}
+};
+
+const leadershipGoalIconMap: Record<"style" | "trait", string> = {
+  style: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
+  trait: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
+};
+
+const FeedbackSectionStyleIconMap: Record<
+  "originalStatement" | "analysis" | "suggestion",
+  string
+> = {
+  originalStatement:
+    "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
+  analysis: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
+  suggestion: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
+};
 
 /**
  * This is a placeholder for the real ActionableAdvice component.
@@ -54,148 +69,184 @@ interface ActionableAdviceProps {
 export default function ActionableAdvice({ data }: ActionableAdviceProps) {
 
   if (data.error.hasError) {
-    return (
-      <>
-        
-        {/* {`ActionableAdvice Component Error:
+
+    const comment = `
+      <!--
+        ActionableAdvice Component Error:
         Type: ${data.error.type}
-        Message: ${data.error.message}`} */}
-       
-      </>
-    );
+        Message: ${data.error.message}
+      -->
+    `;
+    return <div dangerouslySetInnerHTML={{ __html: comment }} />;
   };
 
   if (!data.actionableAdvice) return null;
 
+  const meetingContextFields = data?.actionableAdvice?.meetingContext;
+  const leadershipGoalFields = data?.actionableAdvice?.leadershipGoal;
+  const feedbackOriginalStatement = data?.actionableAdvice?.feedback?.originalStatement;
+  const feedbackAnalysis = data?.actionableAdvice?.feedback?.analysis;
+  const feedbackSuggestion = data?.actionableAdvice?.feedback?.suggestion;
 
   return (
     <div>
       <h3 className="text-md font-semibold text-neutral-600 mb-2">
         Rendered Component Output:
       </h3>
-      {/* 
-        The real ActionableAdvice UI will be built here.
-        The consultant will replace this <pre> block with the actual component implementation.
-      */}
 
       <section className="box-border flex relative flex-col shrink-0 gap-6 mt-5">
-        <header className="relative self-stretch w-full text-3xl font-semibold tracking-tight">
+        <header
+          aria-label="Actionable Advice section"
+          className="relative self-stretch w-full text-3xl font-semibold tracking-tight"
+        >
           Actionable advice
         </header>
 
         <div className="flex flex-col gap-3 items-start p-4 mx-auto my-0 w-full max-w-screen-lg">
           {/* Meeting Information Header */}
-          <div className="box-border flex relative flex-row shrink-0 gap-8 px-6 w-full">
-            <div className="box-border flex relative flex-col grow shrink-0 gap-0.5 w-auto">
-              <time className="box-border relative shrink-0 h-auto text-xs font-light text-zinc-500">
-                11:30 am, Oct 2nd
-              </time>
-              <h3 className="box-border relative shrink-0 h-auto text-base text-zinc-800 font-medium">
-                Meeting with Terry
-              </h3>
-            </div>
-
-            <div className="box-border flex relative flex-row shrink-0 gap-6 self-center">
-              <div className="box-border flex relative flex-col shrink-0 gap-0.5 w-auto">
-                <span className="box-border relative shrink-0 h-auto text-xs font-light text-zinc-500">
-                  Leadership Style
-                </span>
-                <div className="box-border flex relative flex-row shrink-0 gap-1 justify-start items-center">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0"
-                    className="box-border object-cover overflow-hidden shrink-0 w-4 h-4"
-                    alt="Leadership style icon"
-                  />
-                  <span className="box-border relative shrink-0 h-auto text-base text-zinc-800">
-                    Transformational
-                  </span>
+          {(meetingContextFields || leadershipGoalFields) && (
+            <div className="box-border flex flex-wrap overflow-hidden overflow-x-scroll relative flex-row shrink-0 gap-8 px-6 w-full">
+              {(meetingContextFields?.dateTime ||
+                meetingContextFields?.attendee) && (
+                <div className="box-border flex relative flex-col grow shrink-0 gap-0.5 w-auto">
+                  {meetingContextFields?.dateTime && (
+                    <time className="box-border relative shrink-0 h-auto text-xs font-light text-zinc-500">
+                      {meetingContextFields?.dateTime}
+                    </time>
+                  )}
+                  {meetingContextFields?.attendee && (
+                    <h3 className="box-border relative shrink-0 h-auto text-base text-zinc-800 font-medium">
+                      {`Meeting with ${meetingContextFields?.attendee}`}
+                    </h3>
+                  )}
                 </div>
-              </div>
+              )}
 
-              <div className="box-border flex relative flex-col shrink-0 gap-0.5 w-auto">
-                <span className="box-border relative shrink-0 h-auto text-xs font-light text-zinc-500">
-                  Trait
-                </span>
-                <div className="box-border flex relative flex-row shrink-0 gap-1 justify-start items-center">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0"
-                    className="box-border object-cover overflow-hidden shrink-0 w-4 h-4"
-                    alt="Trait icon"
-                  />
-                  <span className="box-border relative shrink-0 h-auto text-base text-zinc-800">
-                    Inspiring
-                  </span>
+              {(leadershipGoalFields?.style || leadershipGoalFields?.trait) && (
+                <div className="box-border flex relative flex-row shrink-0 gap-6 self-center">
+                  {leadershipGoalFields?.style && (
+                    <div className="box-border flex relative flex-col shrink-0 gap-0.5 w-auto">
+                      <span className="box-border relative shrink-0 h-auto text-xs font-light text-zinc-500">
+                        Leadership Style
+                      </span>
+                      <div className="box-border flex relative flex-row shrink-0 gap-1 justify-start items-center">
+                        <img
+                          src={leadershipGoalIconMap.style}
+                          className="box-border object-cover overflow-hidden shrink-0 w-4 h-4"
+                          alt={`${leadershipGoalFields?.style} icon`}
+                        />
+                        <span className="box-border relative shrink-0 h-auto text-base text-zinc-800">
+                          {leadershipGoalFields?.style}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {leadershipGoalFields?.trait && (
+                    <div className="box-border flex relative flex-col shrink-0 gap-0.5 w-auto">
+                      <span className="box-border relative shrink-0 h-auto text-xs font-light text-zinc-500">
+                        Trait
+                      </span>
+                      <div className="box-border flex relative flex-row shrink-0 gap-1 justify-start items-center">
+                        <img
+                          src={leadershipGoalIconMap.trait}
+                          className="box-border object-cover overflow-hidden shrink-0 w-4 h-4"
+                          alt={`${leadershipGoalFields?.trait} icon`}
+                        />
+                        <span className="box-border relative shrink-0 h-auto text-base text-zinc-800">
+                          {leadershipGoalFields?.trait}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
             </div>
-          </div>
+          )}
 
           {/* Advice Cards Grid */}
-          <div className="box-border relative shrink-0 gap-4 w-full">
-            <div className="flex gap-5 max-md:flex-col">
-              {/* What you said card */}
-              <article className="w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0"
-                    className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
-                    alt="What you said icon"
-                  />
-                  <div className="box-border flex relative flex-col grow shrink-0 gap-1">
-                    <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
-                      What you said
-                    </h4>
-                    <blockquote className="box-border relative shrink-0 h-auto text-lg italic font-light text-zinc-700">
-                      It might be good if you could aim to get that done by next
-                      week, but no worries if it's tricky—just let me know what
-                      you think.
-                    </blockquote>
-                  </div>
-                </div>
-              </article>
+          {(feedbackOriginalStatement ||
+            feedbackAnalysis ||
+            feedbackSuggestion) && (
+            <div className="box-border relative shrink-0 gap-4 w-full">
+              <div className="flex gap-5 max-md:flex-col">
+                {/* What you said card */}
+                {feedbackOriginalStatement && (
+                  <article className="w-[33%] max-md:ml-0 max-md:w-full">
+                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
+                      <img
+                        src={FeedbackSectionStyleIconMap.originalStatement}
+                        className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
+                        alt={`${feedbackOriginalStatement?.title} icon`}
+                      />
+                      <div className="box-border flex relative flex-col grow shrink-0 gap-1">
+                        {feedbackOriginalStatement?.title && (
+                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
+                            {feedbackOriginalStatement?.title}
+                          </h4>
+                        )}
+                        {feedbackOriginalStatement?.text && (
+                          <blockquote className="box-border relative shrink-0 h-auto text-lg italic font-light text-zinc-700">
+                            {feedbackOriginalStatement?.text}
+                          </blockquote>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                )}
 
-              {/* Why it matters card */}
-              <article className="ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0"
-                    className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
-                    alt="Why it matters icon"
-                  />
-                  <div className="box-border flex relative flex-col grow shrink-0 gap-1">
-                    <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
-                      Why it matters
-                    </h4>
-                    <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-zinc-700">
-                      You sidestepped tension. It may have been strategic — but
-                      you also risked leaving something unresolved that matters
-                      to your teammate.
-                    </p>
-                  </div>
-                </div>
-              </article>
+                {/* Why it matters card */}
+                {feedbackAnalysis && (
+                  <article className="ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
+                      <img
+                        src={FeedbackSectionStyleIconMap.analysis}
+                        className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
+                        alt={`${feedbackAnalysis?.title} icon`}
+                      />
+                      <div className="box-border flex relative flex-col grow shrink-0 gap-1">
+                        {feedbackAnalysis?.title && (
+                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
+                            {feedbackAnalysis?.title}
+                          </h4>
+                        )}
+                        {feedbackAnalysis?.text && (
+                          <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-zinc-700">
+                            {feedbackAnalysis?.text}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                )}
 
-              {/* Try this next time card */}
-              <article className="ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0"
-                    className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
-                    alt="Try this next time icon"
-                  />
-                  <div className="box-border flex relative flex-col grow shrink-0 gap-1">
-                    <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
-                      Try this next time
-                    </h4>
-                    <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-zinc-700">
-                      I need you to deliver that by end of next week. Let me
-                      know today if you see any blockers.
-                    </p>
-                  </div>
-                </div>
-              </article>
+                {/* Try this next time card */}
+                {feedbackSuggestion && (
+                  <article className="ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                    <div className="box-border flex overflow-hidden relative flex-col grow p-4 gap-2 bg-white rounded shadow">
+                      <img
+                        src={FeedbackSectionStyleIconMap.suggestion}
+                        className="box-border object-cover overflow-hidden shrink-0 w-7 h-7"
+                        alt={`${feedbackSuggestion?.title} icon`}
+                      />
+                      <div className="box-border flex relative flex-col grow shrink-0 gap-1">
+                        {feedbackSuggestion?.title && (
+                          <h4 className="box-border relative shrink-0 h-auto text-base leading-tight font-semibold">
+                            {feedbackSuggestion?.title}
+                          </h4>
+                        )}
+                        {feedbackSuggestion?.text && (
+                          <p className="box-border relative shrink-0 h-auto text-lg font-light leading-snug text-zinc-700">
+                            {feedbackSuggestion?.text}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Disclaimer */}
           <footer className="box-border flex relative flex-col shrink-0 px-6 w-full mt-6">
