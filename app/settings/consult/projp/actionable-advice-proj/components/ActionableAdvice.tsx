@@ -48,8 +48,10 @@ interface ActionableAdviceProps {
 };
 
 const leadershipGoalIconMap: Record<"style" | "trait", string> = {
-  style: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
-  trait: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
+  style:
+    "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0a01e618728ce8ced%2Fb87855325acb416bbceeecddfad634a5",
+  trait:
+    "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0a01e618728ce8ced%2F2df5b1157d494663be997746d5625b1e",
 };
 
 const FeedbackSectionStyleIconMap: Record<
@@ -57,9 +59,11 @@ const FeedbackSectionStyleIconMap: Record<
   string
 > = {
   originalStatement:
-    "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
-  analysis: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
-  suggestion: "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0",
+    "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0a01e618728ce8ced%2Fe37c64620915459f8dd510b9955d91df",
+  analysis:
+    "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0a01e618728ce8ced%2Fb56b0ef9f1c649f089e0e95f688b1be5",
+  suggestion:
+    "https://cdn.builder.io/api/v1/image/assets%2F976a0da190bf4da0a01e618728ce8ced%2F394412f2dd694d6aa6899deb30a1eeb9",
 };
 
 /**
