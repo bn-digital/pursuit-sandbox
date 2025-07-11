@@ -257,7 +257,7 @@ export default function ActionableAdvice({ data }: ActionableAdviceProps) {
 
           {/* Disclaimer */}
           <footer className="box-border flex relative flex-col shrink-0 px-6 w-full mt-6">
-            <p className="box-border relative shrink-0 h-auto text-xs font-light text-zinc-500">
+            <p className="box-border relative shrink-0 h-auto text-[12px] leading-[18px] text-[#BFBFBF]">
               Reflective guidance from recent 1:1s. May not capture full
               context. Use your best judgment.
             </p>
